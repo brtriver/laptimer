@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Lap Timer">
+    <meta name="author" content="brtriver">
+
+    <title>Lap Timer</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="./bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="theme.css" rel="stylesheet">
+  </head>
+
+  <body role="document">
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="./">Lap Timer</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="./free.html">
+	      <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Free
+	    </a></li>
+            <li class="active"><a href="#">
+      	      <span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Race
+	    </a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container theme-showcase" role="main">
+
+      <div id="race">
+
+	<div class="page-header">
+          <h2><span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Race Mode</h2>
+	</div>
+
+	<p class="bg-warning" v-show="drivers.length == 0">
+	  Entry a new car number.
+	</p>
+
+	<div class="input-group">
+	  <span class="input-group-addon">Car Number</span>
+	  <input type="text" class="form-control" v-model="number" id="number"  v-on="keyup:save | key enter">
+	</div>
+
+	<div v-show="!onTheRace">
+	  <h3>Drivers <small>(ID to Name)</small></h3>
+	  <ul v-repeat="drivers">
+	    <div class="input-group">
+	      <span class="input-group-addon" v-text="number"></span>
+	      <input type="text" class="form-control" v-model="name">
+	    </div>
+	  </ul>
+	</div>
+	<div>
+	  <h4>Race Time: <input type="text" v-model="total" style="width: 50px; text-align: right"> sec.</h4>
+
+	  <h2 v-show="drivers.length > 0">
+	    <span v-text="watch | laptime" v-show="watch != 0"></span>
+	    <button type="button" class="btn btn-info btn-lg" v-on="click: start()" v-show="!onTheRace">Start</button>
+	    <button type="button" class="btn btn-warning btn-lg" v-on="click: stop()" v-show="onTheRace">Stop</button>
+	  </h2>
+	</div>
+
+	  <h2><span class="label label-success">Firstest Lap</span> <span v-text="driver(firstestlap.number)"></span> <span v-text="firstestlap.lap | laptime"></span></h2>
+
+
+	<div v-show="reports.length > 0">
+          <h3>Report <small>(Best Lap)</small></h3>
+
+	  <table class="table result table-striped">
+	    <thead>
+	      <tr>
+		<th>No.</th>
+		<th>Laps</th>
+		<th>Total</th>
+		<th>Best Lap</th>
+		<th>Actions</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr v-repeat="reports">
+		<td v-text="driver(number)"></td>
+		<td v-text="laps"></td>
+		<td v-text="total | laptime"></td>
+		<td v-text="best | laptime"></td>
+		<td>
+		  <button type="button" class="btn btn-xs btn-default" v-on="click: clear(number)">Clear</button>
+		</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</div>
+
+	<div v-show="results.length > 0">
+          <h3>Results</h3>
+
+	  <table class="table result">
+	    <thead>
+	      <tr>
+		<th>No.</th>
+		<th>Laps</th>
+		<th>Total</th>
+		<th>Lap</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr v-repeat="results">
+		<td v-text="driver(number)"></td>
+		<td v-text="laps"></td>
+		<td v-text="total | laptime"></td>
+		<td v-text="lap | laptime"></td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</div>
+      </div>
+
+    </div> <!-- /container -->
+
+    <audio id="sound-pi" preload="auto">
+      <source src="./audio/pi.wav" type="audio/wav">
+    </audio>
+    <audio id="sound-countdown" preload="auto">
+      <source src="./audio/countdown.wav" type="audio/wav">
+    </audio>
+    <audio id="sound-alerm" preload="auto">
+      <source src="./audio/alerm.wav" type="audio/wav">
+    </audio>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./bower_components/vue/dist/vue.min.js"></script>
+    <script src="./bower_components/underscore/underscore-min.js"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./speaker.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

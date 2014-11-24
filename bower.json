@@ -1,0 +1,24 @@
+{
+  "name": "laptimer",
+  "version": "0.0.1",
+  "authors": [
+    "Masao Maeda <brt.river@gmail.com>"
+  ],
+  "description": "lap timer",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.1",
+    "vue": "~0.11.0",
+    "underscore": "~1.7.0",
+    "queue-async": "~1.0.7"
+  }
+}
