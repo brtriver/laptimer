@@ -9,7 +9,7 @@ Lap Timer for RC
 インストール方法
 ----------------
 
-- github から zip ファイルをダウンロード
+- <a href="https://github.com/brtriver/laptimer/archive/v0.1.zip">github から zip ファイルをダウンロード</a>
 - ローカルに展開
   - html と js だけなので サーバーは不要です。
 - Chrome で index.html を開く
